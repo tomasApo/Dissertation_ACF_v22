@@ -1,0 +1,98 @@
+\section{Software Considerations}
+
+\raggedright
+In the process of software selection, multiple evaluations needed to take place; Access to licensing, the time required to learn the software to an acceptable degree, software feature flexibility, pricing. 
+
+\subsubsection{Matlab}
+
+Matlab was in careful consideration to be the mathematical tool used to generate the graphs and run Autocorrelation. Unfortunately, due to licensing issues and multiple versions available made this process very time-consuming. The last issue was the learning curve was very steep requiring a lot of hours to get little in added benefit.
+
+\subsubsection{Python}
+
+Python was also in careful considering for a mathematical tool. Here the learning curve was easier and with the huge range of tutorials and documentation online, made this the program of choice. Another selling point was the importing of Libraries, using statsmodel allowed me to implement autocorrelation and other statistical features without having to manually code them yourself. Meaning quickly you could get a script up to speed.
+
+\subsubsection{Diadem}
+
+The last software in consideration was Diadem, used to help engineers accelerate the post-processing of measurement data. Designed for large datasets, this would be excellent choice. The only reason Diadem could not other throw Python was the flexibility and open-source of python. Allowing for this skill to be applied in other areas. 
+
+\section{Libraries used}
+\subsubsection{Matplotlib}
+``Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python. Matplotlib makes easy things easy and hard things possible." \cite{matplotlib}
+
+This library was originaly produced by John D. Hunder American neurobiologist, to provide a a MATLAB-like interface. 
+This library is the backbone of the authors script. All data visualisation graphs are produced using this library. Code refers to matplotlib as plt
+
+\subsubsection{NumPy}
+
+NumPy, is another famous open source library created in 2006. Used in a variety of fields of STEM, from engineering to science and mathematics. ``It’s the universal standard for working with numerical data in Python, and it’s at the core of the scientific Python and PyData ecosystems." 
+
+Used by beginners coders to advanced engineers in R\&D. The API is used in depth with most  data science and scientific Python packages but most importantly for us, Matplotlib and pandas. 
+
+The NumPy API is used extensively in Pandas, SciPy, Matplotlib, scikit-learn, scikit-image and most other data science and scientific Python packages.
+
+For this report, NumPy is used in, creating NumPy arrays, mathematical function sum \cite{mhvk} and average and functions. These Numpy arrays are used instead of standard Python lists as they perform better in speed and and more compact. 
+
+\subsubsection{Pandas}
+
+``Flexible and powerful data analysis / manipulation library for Python, providing labeled data structures similar to R data.frame objects, statistical functions, and much more" \cite{pandas}
+
+Pandas in the code are refered to as the standardised name of pd. The sole purpose of this library in this technical report is to import and read the excel data using ``pd.read\_csv".
+
+\subsubsection{Scripy}
+
+Scripy, developed in 2010 by Jonas Melian. ``The main tool of this package is the shell.Run() class which lets to run system commands in the same shell. It works well with pipes and pass the shell variables." \cite{Scripy}.  
+
+In this script it is only used to assist in down sampling the signal data. 
+``signal = scipy.signal.resample(signal,123200)" 
+
+\subsubsection{Statsmodels}
+
+``Statsmodels is a Python module that provides classes and functions for the estimation of many different statistical models, as well as for conducting statistical tests, and statistical data exploration. An extensive list of result statistics are available for each estimator. The results are tested against existing statistical packages to ensure that they are correct." statsmodel
+The technical report is based on this one library, as it does the mathematical formulas and statistics for autocorrelation in a few lines of code 
+
+\section{Script structure}
+\begin{tikzpicture}[node distance=2cm]
+
+\node (start) [startstop] {Start};
+
+\node (in1) [io, below of=start] {Input data as .csv};
+
+\node (in2) [process, below of=in1] {Resample to 100hz};
+
+\node (pro1) [process, below of=in2] {Autocorrolate function plot};
+
+\node (dec1) [decision, below of=pro1, yshift=-1.5cm] {More than 2 peaks?};
+
+\node (pro2a) [process, below of=dec1, yshift=-1.5cm] {Overlay all potential cycles};
+\node (pro2b) [process, right of=dec1, xshift=3.5cm] {Find new set of data};
+\node (dec2) [io, below of=pro2a, yshift=-0.5cm] {Choose filtering method};
+
+\node (min) [process, below of=dec2, xshift=-5cm] {Minimum};
+\node (max) [process, below of=dec2, xshift=0cm] {Maximum};
+\node (ave) [process, below of=dec2, xshift=5cm] {Average};
+
+\node (output) [io, below of=max] {Output};
+\node (stop) [startstop, below of=output] {Stop};
+
+\draw [arrow] (start) -- (in1);
+\draw [arrow] (in1) -- (in2);
+\draw [arrow] (in2) -- (pro1);
+\draw [arrow] (pro1) -- (dec1);
+\draw [arrow] (dec1) -- node[anchor=south] {no} (pro2b);
+\draw [arrow] (dec1) -- node[anchor=west] {yes} (pro2a);
+\draw [arrow] (pro2a) -- (dec2);
+\draw [arrow] (pro2b) |- (in1);
+\draw [arrow] (dec2) -- (min);
+\draw [arrow] (dec2) -- (max);
+\draw [arrow] (dec2) -- (ave);
+
+\draw [arrow] (min) -- (output);
+\draw [arrow] (max) -- (output);
+\draw [arrow] (ave) -- (output);
+
+\draw [arrow] (output) -- (stop);
+
+
+\end{tikzpicture}
+
+

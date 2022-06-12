@@ -1,0 +1,55 @@
+\raggedright
+\section{Background and context to the problem}
+Finding useful information in vast amount of data is as difficult as `finding a needle in a haystack'. Using \textbf{automated} statistical tools to analyse these large data sets can provide valuable information to assist decision making.
+
+Context to the problem the report is trying to solve. When a CAT machine finishes field testing, it has recorded over 100 channels of data for each test run. An example of a run could include lifting a bucket of sand and unloading it onto a truck. This action is repeated multiple times by the operator throughout a test. Consequently, a \textbf{pattern} emerges in every data channel due to this repeated action. The \textbf{pattern} is the bases of this report. If the operator did not repeat any actions, the tool would not be applicable. 
+Using the author's tool, Engineers can now efficiently analyse this much data. 
+
+\textbf{Cycle}:
+
+A snippet of time is extracted from the larger dataset. In the report's case, the extracted data is roughly 30 to 120 seconds in length (the duration of the repeated task). The extracted data is called a "CYCLE" throughout this report.
+
+\section{What sort of data is suitable?}
+A suitable data source can range from a street's foot traffic during one day to the strain force of a boom arm on an excavator. 
+The perfect case scenario is time series data with low noise and randomness but high repeatability. Using data that has 10+ cycles improves the filtering and selection process shown in \ref{filtering}. Unsuitable data is high noise and randomness with a total cycle count below five. 
+
+The tool is unaffected by the length of the dataset but highly affected by the total repeated cycles in a dataset. Aim for five minimum cycles. More on limitations will be talked about in \ref{limitation}.
+
+The Datasets in this report include three separate files of CAT Machine data with varying magnitudes, randomness and noise. Shown in Figure \ref{data table}
+
+\begin{figure}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Dataset}                                                      & \textbf{A}                                                            & \textbf{B}                                                                        & \textbf{C}                                                                      \\ \hline
+\textbf{Description}                                                  & \begin{tabular}[c]{@{}l@{}}Displacement Tilt \\ cylinder \end{tabular} & \begin{tabular}[c]{@{}l@{}}Displacement Steering \\ cylinder\end{tabular} & \begin{tabular}[c]{@{}l@{}}Force Strain gauge \\ steering cylinder\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Length of \\ dataset\end{tabular}} & 20 mins                                                                & 20 mins                                                                    & 20 mins                                                                          \\ \hline
+\end{tabular}
+\caption{Datasets}
+\label{data table}
+\end{figure}
+
+
+
+\subsection{Time series data vs  non-time series data?}
+Time series data are sequential (ordered by timestamp) and have constant time intervals between data points. In other words, data collected by an event-based data collection system are not time series unless events happen deterministically at constant time intervals.
+
+A rule of thumb to identify the data you received is, does the data comes with timestamps alongside the magnitude values? Time series. The exception to this rule, is data that is only 1 attribute \textit{but} includes the frequency.
+To derive the timestamps from single attribute data using frequency is shown in Figure \ref{frequency table}
+
+\begin{figure}
+\centering
+\begin{tabular}{c|c|c}
+\textbf{Row nº} & \textbf{Magnitude} & \textbf{\begin{tabular}[c]{@{}c@{}}Resulting \\ Time stamp \\ \end{tabular}} \\ \hline
+0 & -1.243801  & 0/500 = 0   \\
+1 & -1.103403  & 1/500 = 0.002 \\
+2 & -0.9631792 & 2/500 = 0.004 \\
+3 & -0.9158725 & 3/500 = 0.006 \\
+... & ... & ... \\
+13750 & -1.122155 & 13750/500 = 27.5
+\end{tabular}
+\[f = \frac{rev}{t}\]
+\caption{Frequency table Dataset C, 500hz}
+\label{frequency table}
+\end{figure}
+
+

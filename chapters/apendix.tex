@@ -1,0 +1,101 @@
+\begin{python}
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import scipy
+from statsmodels.graphics.tsaplots import plot_acf
+from statsmodels.tsa.stattools import acf
+
+#Autocorrelate the signal and plot
+plt.figure(figsize=(15,7))
+plt.ylabel('AutoCorrolation Coefficent')
+plt.xlabel('Data Point (time)')
+acorr = acf(signal, nlags=(len(signal)/10))
+plt.plot(acorr)
+
+file="STR_ABS_AX_F_COMB_HAND_BANK.CSV"
+
+rawData = pd.read_csv (file, header=11)
+
+signal = rawData["kN"].to_numpy()       
+signal = scipy.signal.resample(signal,123200)
+
+plt.figure(figsize=(15,4))
+plt.plot(signal)
+
+#Autocorrelate the signal and plot
+plt.figure(figsize=(15,7))
+plt.ylabel('AutoCorrolation Coefficent')
+plt.xlabel('Data Point (time)')
+acorr = acf(signal, nlags=(len(signal)/10))
+plt.plot(acorr)
+
+#Find peak points
+peak_points = scipy.signal.find_peaks(acorr, height=0.1,prominence=0.2)
+
+# peak_points 4D array, 1D = timestamp, , 2D = peak_heights, 3D = left_based, 4D = right_based,
+
+plt.figure(figsize=(15,7))
+plt.ylabel('AutoCorrolation Coefficent')
+plt.xlabel('time (datapoints)')
+plt.plot(acorr)
+plt.plot(peak_points[0],peak_points[1]['peak_heights'],'rx') #rx = crosses
+
+peaks = np.append([0],peak_points[0])
+len(peaks)
+
+"""Creating the timestamps from the peaks"""
+#using zip() + list slicing 
+#to perform pair iteration in list
+timestamps = list(zip(peaks, peaks[1:] + peaks[:1]))
+print("Total cycles",len(timestamps))
+# printing result
+print ("The pair list is : " + str(timestamps))
+
+#Plot all cycles overlayed
+
+cycles_plot= [] 
+for a,b in zip(peaks[:-1],peaks[1:]):
+    cycles_plot.append(signal[a:b])
+cycles_plot # a 2D list, each element is 1 all the points in 1 cycle
+print(type(cycles_plot))
+print("There's", len(cycles_plot), "cycles plotted" )
+
+plt.figure(figsize=(15,7))
+for cycle in cycles_plot:
+    plt.plot(cycle)
+    
+    
+listforMax=[]
+
+for i in cycles_plot:
+    listforMax.append(max(i))    
+maxIndex = listforMax.index(max(listforMax))
+
+print("max value from list is",max(listforMax))
+print("for function max, cycle index is",maxIndex)
+
+
+listforMin=[]
+
+for i in cycles_plot:
+    listforMin.append(min(i))
+    
+minIndex = listforMin.index(min(listforMin))
+
+print("min value from list is",min(listforMin))
+print("for function max, cycle index is",minIndex)
+
+meanList=[]
+for i in cycles_plot:
+
+    meanList.append(np.sum(i)/len(i))
+    
+closest_real_value = min(meanList, key=lambda x:abs(x-np.average(meanList)))
+print(closest_real_value)
+plt.plot(cycles_plot[13])
+closest_to_av_index = meanList.index(closest_real_value)
+print(closest_to_av_index)
+
+\end{python}

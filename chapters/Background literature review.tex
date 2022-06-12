@@ -1,0 +1,137 @@
+\section{How does Autocorrelation work?}
+Autocorrelation is matching a signal compared to a delayed version of itself. This delay between the original signal and the delay is called ‘lag'. 
+
+``The autocorrelation \cite{Jenkins} function can be used for the following two purposes:
+
+\begin{itemize}
+
+    \item To detect non-randomness in data.
+    
+    \item To identify an appropriate time series model if the data are not random.
+    
+\end{itemize}
+
+Given measurements, Y1, Y2, ..., YN at time X1, X2, ..., XN, the lag k autocorrelation function is defined as
+\begin{figure}[h]
+\centering
+
+\begin{math}
+{ {r_{k} = \frac{\sum_{i=1}^{N-k}(Y_{i} - \bar{Y})(Y_{i+k} -  \bar{Y})} {\sum_{i=1}^{N}(Y_{i} - \bar{Y})^{2} }} }
+\end{math}
+
+\caption{Autocorrelation Formula}
+\label{autocorrolationF}
+\end{figure}
+
+Although the time variable, X, is not used in the formula for Autocorrelation, the assumption is that the observations are equispaced.
+
+Autocorrelation is a correlation coefficient. However, instead of a correlation between two different variables, the correlation is between two values of the same variable at times Xi and Xi+k.
+
+In our case we use Autocorrelation to identify an appropriate time series model, hence we plot with many lags." \cite{NIST}
+
+\subsection{How does this apply?}
+
+The Autocorrelation coefficient has now been explained mathematically, but how is this shown graphically? 
+Looking at Figure \ref{ACF coefficient}, starting on the Y axis. The scale goes from -1 to 1, 1 = 100\% match while 0 = 0\% correlated. X axis's being the datapoints. These peaks seen on the graph is what the script looks for when identifying representative cycles. 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.45]{images/ACF u DIAGRAM.png}
+\caption{ACF tutorial}
+\label{ACF coefficient}
+\end{figure}
+
+\section{Other methods of pattern recognition}
+This research section is in chronological order. Before diving into the different types of pattern recognition and approaches. All methods need to follow this approach to be considered. Using work produced by paper \cite{DBLP:journals/corr/abs-2104-07406}, a table was made for time series data, allowing users to filter by task required, e.g. forecasting,	classification,	clustering,	anomaly detection... Below are is a list of all the libraries that fit the reports need ``pattern recognition".
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Rectangle [id:dp6164774614967738] 
+\draw   (88.14,122) -- (175.44,122) -- (175.44,162) -- (88.14,162) -- cycle ;
+%Shape: Rectangle [id:dp8360875880221361] 
+\draw   (207.63,123) -- (314.63,123) -- (314.63,163) -- (207.63,163) -- cycle ;
+
+%Shape: Rectangle [id:dp6039686166404709] 
+\draw   (347.82,122) -- (454.82,122) -- (454.82,162) -- (347.82,162) -- cycle ;
+
+%Shape: Rectangle [id:dp467126276166151] 
+\draw   (487,122) -- (594,122) -- (594,162) -- (487,162) -- cycle ;
+
+\draw   (176,127) -- (206,142) -- (176,157) ;
+\draw   (316,127) -- (346,142) -- (316,157) ;
+\draw   (455,127) -- (485,142) -- (455,157) ;
+
+% Text Node
+\draw (213.13,135.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {Preprocessing};
+% Text Node
+\draw (363.82,133.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {Processing};
+% Text Node
+\draw (498,133.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {Output cycle};
+% Text Node
+\draw (95.17,134.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {Input data};
+
+\end{tikzpicture}
+
+\subsection{Stumpy}
+On 17 Jul 2019, stumpy library was created. This library was born from the essential research created by the  University of New Mexico, Riverside and the University of California. ``described an exact method called STOMP for computing the matrix profile for any time series with a computational complexity of O(n2)!" \cite{law2019stumpy} 
+
+\subsubsection{Matrix profile} ``At its core, the STUMPY library efficiently computes something called a matrix profile, a vector that stores the z-normalized Euclidean distance between any subsequence within a time series and its nearest neighbour." ``...With the academics, data scientists, and developers in mind, we have taken these concepts and have open sourced STUMPY, a powerful and scalable library that efficiently computes the matrixprofile according to this published research." \cite{law2019stumpy}. If the reader wants to dive deeper into the details of z-normalized Euclidean distance. Read the winner of the best paper award ICDM 2017. \cite{zhu_imamura_nikovski_keogh_2017}.
+
+\subsubsection{How can Stumpy be implemented for pattern recognition?}
+Utilizing dataset A with STUMP function, the graphs in Figure: \ref{Motif} were produced.
+The Y axis is the z-normalized Euclidean distance shown on the bottom plot. The higher this value, the lower the ``correlation". This is illustrated by the best cycles selected starting at the lowest points on the Matrix profile.
+
+To automatically select the lowest point on the Matrix profile, a NumPy sorting algorithm is used to select the first point.
+
+\begin{python}
+motif_idx = np.argsort(mp[:, 0])[0]
+print(f"The motif is located at index {motif_idx}")
+\end{python}
+The motif is located at index 85062
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.40]{images/Motif (Pattern) Discovery.png}
+\caption{Motif (Pattern) Discovery}
+\label{Motif}
+\end{figure}
+According to the documentation XXX, to select a complete cycle, choose the lowest point in the Matrix profile, then add the rough length of the pattern to create the stand and endpoint of the cycle.
+
+Requiring the knowledge of the cycle length prior to running the program highlighted a major problem with stumpy. This problem means that the stumpy library cannot be used if the engineer does not know the cycle length they are after. 
+\begin{python}
+length = 4000
+mp = stumpy.stump(datasetA['mm'], length)
+
+\end{python}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.40]{images/DatasetA.png}
+\caption{Motif (Pattern) Discovery}
+\label{Stumpy Cycle selected}
+\end{figure}
+
+\subsection{pyts}
+``pyts" is a Python package dedicated to time series classification. It aims to make time series classification easily accessible by providing preprocessing and utility tools, and implementations of several time series classification algorithms. The package comes up with many unit tests and continuous integration ensures new code integration and backward compatibility. The package is distributed under the 3-clause BSD license." \cite{JMLR:v21:19-763}
+
+Throughout researching and testing the tool to see its application, unfortunately, it does not fit the requirements. `pyst' library uses machine learning requiring training samples before running the actual time series data. Under the methodology of the report, no training samples are provided. The function has to find `a representative cycle' with only 1 dataset. `pyst' library fails to do so even if it markets itself as pattern recognition and is confirmed from paper \cite{DBLP:journals/corr/abs-2104-07406}.
+
+\subsection{matrixprofile}
+
+Here is another library based on the z-normalized Euclidean distance papers \cite{zhu_imamura_nikovski_keogh_2017}. 
+``MatrixProfile is a Python 3 library, brought to you by the Matrix Profile Foundation, for mining time series data. The Matrix Profile is a novel data structure with corresponding algorithms (stomp, regimes, motifs, etc.) developed by the Keogh and Mueen research groups at UC-Riverside and the University of New Mexico. The goal of this library is to make these algorithms accessible to both the novice and expert through standardization of core concepts, a simplistic API, and sensible default parameter values." \cite{Van_Benschoten2020} 
+
+Unfortunately, at the time of this report, Python 3.10 is not supported. Stopping the author from using the datasets for this library. Fortunately the article \cite{Van_Benschoten2020} provides Figure \ref{matrixTable} of the results from a NYC taxi dataset. Results seem promising for the report with an interesting automatic Discord identifier. Discord is defined as "A time series discord indicates a subsequence with the maximum distance to its neighbor in the given time series data, which means abnormal or unusual data trends."\cite{woodbridge_wilson_rintoul_goldstein_2015}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.40]{images/examples_NYC_Taxis_8_2.png}
+\caption{matrixTable}
+\label{matrixTable}
+\end{figure}
+
+\subsection{tslearn}
+tslearn is another library based on the Scikit-learn platform. A trendy Python package for machine learning. Unfortunately, this library has the same issue as matrixprofile. It relies on training data for the AI to practice before running through the main dataset. No training data is allowed in the report's case, making the tslearn library unsuitable.  
