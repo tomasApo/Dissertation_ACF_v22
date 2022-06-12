@@ -1,26 +1,29 @@
 \section{Technical/Commercial Content}
 
-In this day and age, we are receiving ever more data. Unfortunately, raw data is meaningless without the Skills and tools to analyse It.
+In this day and age, we are receiving ever more data. Unfortunately, raw data is meaningless without the Skills and tools to analyse it.
 
 The Commercial benefit of Autocorrelation is that it saves the company resources. It reduces the time needed to filter through hours of machine data, as the engineers only have to analyse one cycle instead of hundreds. It also facilitates the engineer in identifying micro details in a cycle that would be drowned in hours of data. 
 
-Engineering teams are using data science tools more and more in making decisions from financial services to AMG Mercedes F1 team in solving their 'porpoising' issue \cite{mercedes}. It gives us in-depth information without needing loads of trial and error.
-
-\section{Suggestions}
-"Using Autocorrelation to identify a representative
-cycle in a larger dataset with Python."
-
-Autocorrelation performed remarkably well which can be seen from the results section XXX. Other tools also performed well in the research section XXX but required length of the cycle to produce a result.
+Data science tools are increasing in popularity especially in engineering teams, to assist in large decision. The companies using data science tools range from financial services to AMG Mercedes F1 team in solving their 'porpoising' issue \cite{mercedes}. 
 
 \subsection{Key findings}
 The script produced with the Statsmodels ACF function, shows promising results for a method of cycle identification in python. Successfully working with 2 out of the 3 datasets tested against it. Only failing with dataset C, 'Force Strain gauge' seemingly due to the 500hz frequency and high noise related to strain gauges.
 
-Filtering was a large hurdle in producing a fully functioning tool using autocorrelation. Three methods were produced with the most complex one being the 'mean' function nonetheless this area is a weak link in the report. More advanced filtering methods could be investigated when narrowing down the group of cycles to one representative cycle. 
+Filtering was another hurdle in producing a fully functioning tool using autocorrelation. Three methods were produced with the most complex one being the 'mean' function nonetheless this area is a weak link in the report. More advanced filtering methods could be investigated when narrowing down the group of cycles to one representative cycle. 
 
 \subsection{Recommendations}
-For cycle identification the findings suggests that the reader tries out both Statsmodel and Stumpy  to see which method fits their specific needs better. 
+For cycle identification the findings suggests that the reader tries out both Statsmodel and Stumpy to see which method fits their specific needs better. 
+\subsubsection{Autocorrelation}
+For pattern recognition without cycle length knowledge use the tool. If large changes need to be made to the original script, the author recommends extracting the acf function from Statsmodel library instead of editing the whole script. 
+An idea that could investigated to improve the tools performance with higher randomness data like Dataset C. Investigate lowering the height constant and changing the prominence value in the peaks function. 
+
+\begin{python}
+#Find peak points
+peak_points = scipy.signal.find_peaks(acorr, height=0.1,prominence=0.2)
+\end{python}
 
 \subsubsection{Stumpy}
+If the length of cycle is known, stump function even worked with dataset C, at 500hz, something that the autocorrelation script failed in.
 If Stumpy is chosen and reader is having issues with processing time required. Stumpy library offers an accelerated version through a Nvidia GPU version of the STUMP function. Author was unable to test this version due to limited access to a specific brand gpu. 
 \begin{python}
 import stumpy
@@ -28,4 +31,6 @@ mp = stumpy.gpu_stump(df['value'], m=m)
 # Note that you'll need a properly configured NVIDIA GPU for this
 \end{python}
 
-Also consider checking the Github page and the documentation as the library can be updated at any moment due for other tutorials and examples due to the open source nature of the library. \cite{law2019stumpy}
+Also consider checking the Github page and the documentation as the library can be updated at any moment due with other tutorials and examples due to the open source nature of the library. \cite{law2019stumpy}
+
+

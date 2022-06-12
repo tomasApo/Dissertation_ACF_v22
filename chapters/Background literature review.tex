@@ -32,7 +32,7 @@ In our case we use Autocorrelation to identify an appropriate time series model,
 \subsection{How does this apply?}
 
 The Autocorrelation coefficient has now been explained mathematically, but how is this shown graphically? 
-Looking at Figure \ref{ACF coefficient}, starting on the Y axis. The scale goes from -1 to 1, 1 = 100\% match while 0 = 0\% correlated. X axis's being the datapoints. These peaks seen on the graph is what the script looks for when identifying representative cycles. 
+Looking at Figure \ref{ACF coefficient}, starting on the Y axis. The scale goes from -1 to 1, 1 = 100\% match while 0 = 0\% correlated. X axis's being the datapoints. The peaks with the red crosses seen on the graph is what the script looks for when identifying representative cycles. 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.45]{images/ACF u DIAGRAM.png}
@@ -41,7 +41,7 @@ Looking at Figure \ref{ACF coefficient}, starting on the Y axis. The scale goes 
 \end{figure}
 
 \section{Other methods of pattern recognition}
-This research section is in chronological order. Before diving into the different types of pattern recognition and approaches. All methods need to follow this approach to be considered. Using work produced by paper \cite{DBLP:journals/corr/abs-2104-07406}, a table was made for time series data, allowing users to filter by task required, e.g. forecasting,	classification,	clustering,	anomaly detection... Below are is a list of all the libraries that fit the reports need ``pattern recognition".
+This research section is in chronological order. Before diving into the different types of pattern recognition and approaches. All methods need to follow this approach to be considered. Using the database produced by paper \cite{DBLP:journals/corr/abs-2104-07406}, a table was made for time series data, allowing users to filter by task required, e.g. forecasting, classification,	clustering,	anomaly detection... Below are is a list of all the libraries that fit the reports needs ``pattern recognition".
 
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
 
@@ -81,7 +81,7 @@ On 17 Jul 2019, stumpy library was created. This library was born from the essen
 \subsubsection{Matrix profile} ``At its core, the STUMPY library efficiently computes something called a matrix profile, a vector that stores the z-normalized Euclidean distance between any subsequence within a time series and its nearest neighbour." ``...With the academics, data scientists, and developers in mind, we have taken these concepts and have open sourced STUMPY, a powerful and scalable library that efficiently computes the matrixprofile according to this published research." \cite{law2019stumpy}. If the reader wants to dive deeper into the details of z-normalized Euclidean distance. Read the winner of the best paper award ICDM 2017. \cite{zhu_imamura_nikovski_keogh_2017}.
 
 \subsubsection{How can Stumpy be implemented for pattern recognition?}
-Utilizing dataset A with STUMP function, the graphs in Figure: \ref{Motif} were produced.
+Utilizing dataset A with STUMP function, the graphs in Figure \ref{Motif} were produced.
 The Y axis is the z-normalized Euclidean distance shown on the bottom plot. The higher this value, the lower the ``correlation". This is illustrated by the best cycles selected starting at the lowest points on the Matrix profile.
 
 To automatically select the lowest point on the Matrix profile, a NumPy sorting algorithm is used to select the first point.
@@ -98,7 +98,7 @@ The motif is located at index 85062
 \caption{Motif (Pattern) Discovery}
 \label{Motif}
 \end{figure}
-According to the documentation XXX, to select a complete cycle, choose the lowest point in the Matrix profile, then add the rough length of the pattern to create the stand and endpoint of the cycle.
+According to the documentation \cite{law2019stumpy}, to select a complete cycle, choose the lowest point in the Matrix profile, then add the rough length of the pattern to create the stand and endpoint of the cycle.
 
 Requiring the knowledge of the cycle length prior to running the program highlighted a major problem with stumpy. This problem means that the stumpy library cannot be used if the engineer does not know the cycle length they are after. 
 \begin{python}
@@ -117,14 +117,14 @@ mp = stumpy.stump(datasetA['mm'], length)
 \subsection{pyts}
 ``pyts" is a Python package dedicated to time series classification. It aims to make time series classification easily accessible by providing preprocessing and utility tools, and implementations of several time series classification algorithms. The package comes up with many unit tests and continuous integration ensures new code integration and backward compatibility. The package is distributed under the 3-clause BSD license." \cite{JMLR:v21:19-763}
 
-Throughout researching and testing the tool to see its application, unfortunately, it does not fit the requirements. `pyst' library uses machine learning requiring training samples before running the actual time series data. Under the methodology of the report, no training samples are provided. The function has to find `a representative cycle' with only 1 dataset. `pyst' library fails to do so even if it markets itself as pattern recognition and is confirmed from paper \cite{DBLP:journals/corr/abs-2104-07406}.
+Throughout researching and testing how this library applies pattern recognition, unfortunately, it does not fit the requirements. `pyst' library uses machine learning requiring training samples before running the actual time series data. Under the methodology of the report, no training samples are provided. The function has to find `a representative cycle' with only 1 dataset. `pyst' library fails to do so even if it markets itself as pattern recognition and is confirmed from database paper \cite{DBLP:journals/corr/abs-2104-07406}.
 
 \subsection{matrixprofile}
 
 Here is another library based on the z-normalized Euclidean distance papers \cite{zhu_imamura_nikovski_keogh_2017}. 
 ``MatrixProfile is a Python 3 library, brought to you by the Matrix Profile Foundation, for mining time series data. The Matrix Profile is a novel data structure with corresponding algorithms (stomp, regimes, motifs, etc.) developed by the Keogh and Mueen research groups at UC-Riverside and the University of New Mexico. The goal of this library is to make these algorithms accessible to both the novice and expert through standardization of core concepts, a simplistic API, and sensible default parameter values." \cite{Van_Benschoten2020} 
 
-Unfortunately, at the time of this report, Python 3.10 is not supported. Stopping the author from using the datasets for this library. Fortunately the article \cite{Van_Benschoten2020} provides Figure \ref{matrixTable} of the results from a NYC taxi dataset. Results seem promising for the report with an interesting automatic Discord identifier. Discord is defined as "A time series discord indicates a subsequence with the maximum distance to its neighbor in the given time series data, which means abnormal or unusual data trends."\cite{woodbridge_wilson_rintoul_goldstein_2015}
+Unfortunately, at the time of this report, Python 3.10 is not supported. Stopping the author from using the CAT machine datasets for this library. Fortunately the article \cite{Van_Benschoten2020} provides Figure \ref{matrixTable} of the results from a NYC taxi dataset. Results seem promising for the report with an interesting automatic Discord identifier. Discord being defined as "A time series discord indicates a subsequence with the maximum distance to its neighbor in the given time series data, which means abnormal or unusual data trends."\cite{woodbridge_wilson_rintoul_goldstein_2015}
 
 \begin{figure}
 \centering
