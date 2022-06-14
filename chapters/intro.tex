@@ -1,20 +1,20 @@
 \raggedright
 \section{Background and context to the problem}
-Finding useful information in vast amount of data is as difficult as `finding a needle in a haystack'. Using \textbf{automated} statistical tools to analyse these large data sets can provide valuable information to assist decision making.
+Finding useful information in a vast amount of data is as difficult as `finding a needle in a haystack'. Using \textbf{automated} statistical tools to analyse these large data sets can provide valuable information to assist decision making.
 
-Context to the problem the report is trying to solve. When a CAT machine finishes field testing, it has recorded over 100 channels of data for each test run. An example of a run could include lifting a bucket of sand and unloading it onto a truck. This action is repeated multiple times by the operator throughout a test. Consequently, a \textbf{pattern} emerges in every data channel due to this repeated action. This \textbf{pattern} is the bases of this report. If the operator did not repeat any actions, the tool would not be applicable. 
+As Context to the problem this report is trying to solve, when a CAT machine finishes field testing, it has recorded over 100 channels of data for each test run. An example of a run could include lifting a bucket of sand and unloading it onto a truck. This action is repeated multiple times by the operator throughout a test. Consequently, a \textbf{pattern} emerges in every data channel due to this repeated action. This \textbf{pattern} is the basis of this report. If the operator did not repeat any actions, the tool would not be applicable. 
 Using the author's tool, engineering can now efficiently analyse this much data. 
 
 \subsection{Cycle}
 A snippet of time is extracted from the larger dataset. In the report's case, the extracted data is roughly 30 to 120 seconds in length (the duration of the repeated task). The extracted data is called a ``CYCLE" throughout this report.
 
 \section{What sort of data is suitable?}
-A suitable data source can range from a street's foot traffic during one day to the strain force of a boom arm on an excavator. 
-The perfect case scenario is time series data with low noise and randomness but high repeatability. Using data that has 10+ cycles improves the filtering and selection process shown in \ref{filtering}. Unsuitable data is high noise and randomness with a total cycle count below five. 
+A suitable data for the autocorrelation script can range from a weeks worth of street foot traffic to the strain force of a boom arm on an excavator. 
+The perfect case scenario is time series data with low noise and randomness but high repeatability. Using data that has 10+ cycles improves the filtering and selection process shown later in \ref{filtering}. 
 
-The tool is unaffected by the length of the dataset but highly affected by the total repeated cycles in a dataset. Aim for five minimum cycles. More on limitations will be talked about in \ref{limitation}.
+The tool is unaffected by the length of the dataset but highly affected by the total repeated cycles in a dataset. More on cycle count limitations will be talked about in \ref{limitation}.
 
-The Datasets in this report include three separate files of CAT Machine data with varying magnitudes, randomness and noise. Shown in Figure \ref{data table}
+The Datasets in this report include three separate files of CAT Machine data with varying magnitudes, randomness and noise. This is shown in table \ref{data table}
 
 \begin{figure}
 \begin{tabular}{|l|l|l|l|}
@@ -32,8 +32,7 @@ The Datasets in this report include three separate files of CAT Machine data wit
 \subsection{Time series data vs  non-time series data?}
 Time series data are sequential (ordered by timestamp) and have constant time intervals between data points. In other words, data collected by an event-based data collection system are not time series unless events happen deterministically at constant time intervals.
 
-A rule of thumb to identify the data you received is, does the data comes with timestamps alongside the magnitude values? Time series. The exception to this rule, is data that is only 1 attribute \textit{but} includes the frequency.
-To derive the timestamps from single attribute data using frequency is shown in Figure \ref{frequency table}
+A rule of thumb to identify the data you received is to check if the data comes with timestamps alongside the magnitude values in each time series. The exception to this rule is data that has only one attribute \textit{but} includes the frequency. This method used to derive the timestamps from single attribute data using frequency is shown in Figure \ref{frequency table}.
 
 \begin{figure}
 \centering

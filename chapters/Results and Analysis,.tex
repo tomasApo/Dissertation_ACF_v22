@@ -1,5 +1,5 @@
 \raggedright
-\section{How do we implement Autocorrelation?}
+\section{Autocorrelation implementation}
 The method chosen is using the function acf from statsmodel library \cite{statsmodel}. Code and print results seen on figure \ref{a}
 
 \begin{python}
@@ -78,9 +78,9 @@ for cycle in cycles_plot:
 \subsection{Initial observations:}
 \begin{itemize}
 
-    \item Not all the cycles align
+    \item Not all the cycles align.
     
-    \item All the cycles seem to follow the large dip at time 2000
+    \item All the cycles seem to follow the large dip at time 2000.
     
     \item This dataset seems to have a cap at magnitude of roughly
     500.
@@ -123,10 +123,10 @@ minIndex = listforMin.index(min(listforMin))
 
 \end{python}
 
-The `for loop' finds the minimum value for each cycle in `cycles\_plot' then adds it to `listforMin'. Once the loop finishes, it has 36 values, one minimum value for each cycle. If we want to select the cycle with the lowest value, variable `minIndex', holds the index value of this cycle. In our case it is index nº 30.
+The `for loop' finds the minimum value for each cycle in `cycles\_plot' and then adds it to `listforMin'. Once the loop finishes it has 36 values, one minimum value for each cycle. If we want to select the cycle with the lowest value, variable `minIndex' holds the index value of this cycle. In our case it is index nº 30.
 
 \subsection{Average}
-Using the mathematical average approach to find the average peak of all the magnitudes of each cycle. Next step, find the mean the 36 values. For understanding purposes, assume it gives us a value of 340.2, then use Python built in method index() to find the cycle number. Unfortunately the mean or average value calculated might not exist in the actual data. Giving the script an error. Instead we have to alter this approach and find the closest real value to the theoretical mean. This is an approach: 
+After using the mathematical average approach to find the average peak of all the magnitudes of each cycle, we must find the mean of the 36 values. For the purposes of comprehension, assume it gives us a value of 340.2, and then use Python built in method index() to find the cycle number. Unfortunately the mean or average value calculated might not exist in the actual data, giving the script an error. Instead we have to alter this approach and find the closest real value to the theoretical mean. This is an approach: 
 
 \begin{python}
 meanList=[]
@@ -148,13 +148,13 @@ Using Python's built in min function, it finds the minimum distance from the ´m
 
 The `meanList.Index()' function finds the index of our  ´closest\_real\_value' Giving an output of cycle nº 13.
 
-\subsection{filtering limitations}
+\subsection{Filtering limitations}
 Average, minimum and maximum work in the authors case but everyone's use case is different. Exploring other options like Standard deviations, most common cycle, 25 quarterly could be explored. 
 \section{Autocorrelation limitation}\label{limitation}
 
-When the signal data has a greater Randomness. The magnitude of the Autocorrelation coefficient is reduced drastically. 
+When the signal data has a greater Randomness the magnitude of the Autocorrelation coefficient is reduced drastically. 
 
-The lower the amount of cycles found the higher the probability that the cycle selected is not ``...Representative...". 
+The lower the amount of cycles found, the higher the probability that the cycle selected is not ``...Representative...". 
 
 \begin{figure}[h]
 \centering
@@ -163,8 +163,8 @@ The lower the amount of cycles found the higher the probability that the cycle s
 \label{LimitA}
 \end{figure}
 
-Stress testing 'acf' function, with dataset B. The displacement steering cylinder dataset has a higher randomness compared to the dataset A used in the rest of the report. This translates to a decrease in total cycles found. The amount of cycles identified went from 36 to 5, 86\% decrease. 
-This can be justified due to steering cylinder has a lot of feedback as the machine steer's over rocks and uneven terrain unlike lift or tilt cylinder.
+Stress testing 'acf' function with dataset B, the displacement steering cylinder dataset has a higher randomness compared to the dataset A used in the rest of the report. This translates to a decrease in total cycles found. The amount of cycles identified went from 36 to 5, 86\% decrease. 
+This can be justified as the steering cylinder has a lot of feedback from the machine's steer over rocks and uneven terrain unlike the lift or tilt cylinder.
 
 \begin{figure}[h]
 \centering
