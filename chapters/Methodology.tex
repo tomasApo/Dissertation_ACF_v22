@@ -1,32 +1,30 @@
 \section{Software Considerations}
 
 \raggedright
-In the process of software selection, multiple evaluations needed to take place; Access to licensing, the time required to learn the software to an acceptable degree, software features, flexibility, pricing. 
+In the process of software selection, multiple evaluations need to take place: access to licensing, software features, flexibility, pricing, and the time required to have a proficient understanding of the software.
 
 \subsubsection{Matlab}
 
-Matlab is the standard company pick for a mathematical tool and to generate the graphs. Unfortunately, licensing issues and multiple versions available made this process very time-consuming. The last issue was the learning curve being very steep and thus requiring lots of hours to receive little in added benefit.
+Matlab is the default company pick for a mathematical and graphical tool. However, due to licensing issues and multiple versions being available, the process was difficult and very time-consuming. The prominent issue is the presence of a very steep learning curve - this requires several hours of work, and the benefits given are not proportional to the amount of time it would take to become proficient in this software.
 
 \subsubsection{Python}
-
-Python was also in careful considering as a mathematical tool. Here the learning curve was easier and with the huge range of tutorials and documentation online, this become the program of choice. Another selling point was the importing of Libraries using `statsmodel' allowed for the integration of autocorrelation and other statistical features without having to manually code them yourself. This, the user could quickly get the desired outcome.
+Python was also closely considered for the mathematical and graphical tool. Here, the learning curve was more manageable, and due to the extensive range of tutorials and online documentation, Python became the program of choice. Another crucial selling point was the importing of libraries using ``statsmodel". This allowed for the integration of Autocorrelation and other statistical features without having to manually code them yourself. Due to all these benefits, the user could quickly get their desired outcome.
 
 \subsubsection{Diadem}
-
-The last software in consideration was Diadem, used to help engineers accelerate the post-processing of measurement data. Designed for large datasets, this would be an excellent choice. The only reason Diadem could not otherthrow Python was Python's advantages of flexibility and open-source that allowed this skill to be applied in other areas. 
+The last software in consideration was Diadem, which was used to help engineers accelerate the post-processing of measurement data. Diadem proved to be an excellent choice as it was designed for large datasets. The only reason Python remains the software of choice is its superior flexibility and open-source which allows this skill to be applied in other areas. 
 
 \section{Libraries used in final python script}
 \subsubsection{Matplotlib}
-``Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python. Matplotlib makes easy things easy and hard things possible." \cite{matplotlib}
+``Matplotlib" is a comprehensive library used for creating static, animated, and interactive visualisations in Python. ``Matplotlib makes easy things easy and hard things possible." (2)
+This library was originally produced by John D. Hunder, an American microbiologist, to provide a MATLAB-like interface. This library is the backbone of the author's script. \cite{matplotlib}
 
 This library was originally produced by John D. Hunder American microbiologist to provide a a MATLAB-like interface. 
 This library is the backbone of the authors script. All data visualisation graphs are produced using this library. For reference code refers to matplotlib as plt in script. 
 
 \subsubsection{NumPy}
+NumPy is another famous open source library created in 2006 which was used in various fields of STEM, from engineering to science and mathematics.``It’s the universal standard for working with numerical data in Python, and it’s at the core of the scientific Python and PyData ecosystems." \cite{mhvk}
 
-NumPy is another famous open source library created in 2006 used in a variety of fields of STEM from engineering to science and mathematics. ``It’s the universal standard for working with numerical data in Python, and it’s at the core of the scientific Python and PyData ecosystems." 
-
-Used by beginners coders to advanced engineers in R\&D, the API is used in depth with most data science and scientific Python packages but most importantly for this tool, Matplotlib and pandas. 
+Used by beginner coders to advanced engineers in R\&D, the API is used in depth with most data science and specific Python packages. Most importantly, for the autocorrelation script, Matplotlib and Pandas library also use Numpy.  
 
 The NumPy API is used extensively in Pandas, SciPy, Matplotlib, scikit-learn, scikit-image and most other data science and scientific Python packages.
 
@@ -38,17 +36,17 @@ For this report, NumPy is used to create NumPy arrays, mathematical function sum
 
 Pandas in the code are referred to as the standardised name of pd. The sole purpose of this library in the report is to import and read the excel data using ``pd.read\_csv".
 
-\subsubsection{Scripy}
+\subsubsection{Scipy}
 
-Scripy, developed in 2010 by Jonas Melian. ``The main tool of this package is the shell.Run() class which lets you run system commands in the same shell. It works well with pipes and pass the shell variables." \cite{Scripy}.  
+``SciPy (pronounced "Sigh Pie") is an open-source software for mathematics, science, and engineering. It includes modules for statistics, optimization, integration, linear algebra, Fourier transforms, signal and image processing, ODE solvers, and more." \cite{Scipy}.  
 
 In this script it is only used to assist in down sampling the signal data. 
 ``signal = scipy.signal.resample(signal,123200)" 
 
 \subsubsection{Statsmodels}
 
-Statsmodels is a Python module that includes functions inside classes for a wide variety of statistical models, in addition to the execution of statistical tests and the study of statistical data. For each estimator, a full list of result statistics is accessible. In order to validate the accuracy of the findings, they are compared to various pre-existing statistical analysis programmes. \cite{law2019stumpy} 
-Statsmodel library serves as the foundations for this technical report because it can calculate the mathematical formulas and statistics for autocorrelation in a relatively small number of lines of code.
+Statsmodels is a Python module that includes functions inside classes for a wide variety of statistical models, in addition to the execution of statistical tests and the study of statistical data. For each estimator, a full list of result statistics is accessible. In order to validate the accuracy of the findings, the results are compared to various pre-existing statistical analysis programs. \cite{law2019stumpy} 
+Statsmodel library serves as the foundation for this technical report because it can calculate the mathematical formulas and statistics for autocorrelation in a relatively small number of lines of code.
 
 \section{Script structure}
 \begin{tikzpicture}[node distance=2cm]

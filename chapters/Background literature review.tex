@@ -12,7 +12,7 @@ Autocorrelation is matching a signal compared to a delayed version of itself. Th
 \end{itemize}
 
 Given measurements, Y1, Y2, ..., YN at time X1, X2, ..., XN, the lag k autocorrelation function is defined as
-\begin{figure}[h]
+\begin{figure}
 \centering
 
 \begin{math}
@@ -31,10 +31,9 @@ In our case we use Autocorrelation to identify an appropriate time series model,
 
 \subsection{How does this apply?}
 
-The Autocorrelation coefficient has now been explained mathematically, but how is this shown graphically? 
-Looking at Figure \ref{ACF coefficient} and starting on the Y axis, the scale goes from -1 to 1, 1 = 100\% match and 0 = 0\% correlated while -1 equating to an anti-phase sort of cycle matching.
-The X axis is the length of time the dataset but it is shown in datapoint numbers. If the dataset is 10,000 datapoints long, the x axis autocorrelation coefficient graph will shown 10,000 as the maximum value. The peaks with the red crosses seen on the graph is what the script looks for when identifying representative cycles. 
-\begin{figure}[h]
+The Autocorrelation coefficient has now been explained mathematically - but how can this be shown graphically? When looking at Figure \ref{ACF coefficient} and starting on the Y axis, you can see the scale goes from -1 to 1. 1 equates to a perfect match, whilst -1 is an anti-phase cycle match. 0 means there is a 0\% correlation. The X axis is the length of time of the dataset, but is not shown as a conventional measure of time (ie seconds, minutes). Instead, it is shown as rows on our dataset (as seen in the table shown in Figure \ref{data table}). If the dataset is 10,000 datapoints long, the X axis Autocorrelation coefficient graph will therefore show 10,000 as the maximum X value.  On the graph, peaks will be marked with red crosses. These are what the script looks for when identifying representative cycles.
+
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.45]{images/ACF u DIAGRAM.png}
 \caption{ACF tutorial}
@@ -42,7 +41,9 @@ The X axis is the length of time the dataset but it is shown in datapoint number
 \end{figure}
 
 \section{Other methods of pattern recognition}
-Before diving into the different types of pattern recognition and approaches. All methods need to follow the diagram´s approach to be considered. Using the database produced by Julien Siebert, Janek Groß, and Christof Schro  \cite{DBLP:journals/corr/abs-2104-07406}, a table was made for time series data, allowing users to filter by task required. In our case pattern recognition but other classification methods were available like forecasting, classification,	clustering,	anomaly detection... Below is a list of all the libraries that fit the reports needs ``pattern recognition".
+All methods and approaches of pattern recognition need to follow the approach shown in Figure \ref{fig:method}. Using the database produced by JJulien Siebert, Janek Groß, and Christof Schro \cite{DBLP:journals/corr/abs-2104-07406}, a table was made for time series data; this allows users to filter any information they need for the required task. In our case, we need to filter by pattern recognition. However, there are other classification methods available such as forecasting, classification, clustering, anomaly detection etc. Below is a list of all the libraries that fit the report's needs for pattern recognition.
+\begin{figure}
+    \centering
 
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
 
@@ -75,9 +76,11 @@ Before diving into the different types of pattern recognition and approaches. Al
 \draw (95.17,134.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {Input data};
 
 \end{tikzpicture}
-
+    \caption{}
+    \label{fig:method}
+\end{figure}
 \subsection{Stumpy}
-On 17 Jul 2019, stumpy library was created. This library was born from the essential research created by the  University of New Mexico, Riverside and the University of California. It ``described an exact method called STOMP for computing the matrix profile for any time series with a computational complexity of O(n2)!" \cite{law2019stumpy} 
+On 17 Jul 2019, the Stumpy library was created. This library was born from the essential research created by the  University of New Mexico, Riverside and the University of California. It ``described an exact method called STOMP for computing the matrix profile for any time series with a computational complexity of O(n2)!" \cite{law2019stumpy} 
 
 \subsubsection{Matrix profile} 
 The STUMPY library efficiently computes a matrix profile, a vector that stores the z-normalized Euclidean distance in between subsequences in a time series and its nearest neighbour. Target market is academics, data scientists, and developers. Open-sourced STUMPY, is a strong and scalable library that efficiently computes the matrixprofile according to this published study \cite{law2019stumpy}. If the reader wishes to dive deeper into the technicalities of z-normalized Euclidean distance, they can read the best paper award winner from ICDM 2017.\cite{zhu_imamura_nikovski_keogh_2017}.
@@ -117,17 +120,15 @@ mp = stumpy.stump(datasetA['mm'], length)
 \end{figure}
 
 \subsection{pyts}
-"pyts "is a Python library specialized in classifying time series. It seeks to make time series classification more accessible by offering preprocessing and utility tools, as well as implementations of multiple time series classification algorithms. The package includes several unit tests, and continuous integration ensures backward compatibility and code integration. The package is released under the BSD licence with three clauses.  \cite{JMLR:v21:19-763}
+"pyts "is a Python library specialized in classifying time series. It seeks to make time series classification more accessible by offering pre-processing and utility tools, as well as implementations of multiple time series classification algorithms. The package includes several unit tests, and continuous integration ensures backward compatibility and code integration. The package is released under the BSD licence with three clauses.  \cite{JMLR:v21:19-763}
 
 
-Unfortunately, after researching and testing the tool to see its application, it has been discovered that it does not fit the requirements. The `pyst' library uses machine learning that requires training samples before running the actual time series data, and under the methodology of the report, no training samples are provided. the function also has to find `a representative cycle' with only 1 dataset, and even though it markets itself as pattern recognition (confirmed in database paper \cite{DBLP:journals/corr/abs-2104-07406}), the`pyst' library fails to do so 
+Unfortunately, after researching and testing the tool to see its application, it has been discovered that it does not fit the requirements. The `pyst' library uses machine learning that requires training samples before running the actual time series data, and under the methodology of the report, no training samples are provided. The function also has to find `a representative cycle' with only 1 dataset, and even though it markets itself as pattern recognition (confirmed in database paper \cite{DBLP:journals/corr/abs-2104-07406}), the`pyst' library fails to do so.
 
-\subsection{matrixprofile}
+\subsection{MatrixProfile}
+Here is another library based on the z-normalised Euclidean distance papers \cite{zhu_imamura_nikovski_keogh_2017}. MatrixProfile is a Python 3 library produced explicitly by the MatrixProfile Foundation for timeseries doing data mining. The MatrixProfile is a novel data structure with accompanying algorithms (regimes, stomp, motifs etc.) created by the research groups of Keogh and Mueen at UC-Riverside and the University of New Mexico. The objective of MatrixProfile is to make these algorithms accessible to both beginners and experts. This can be done by standardising basic principles and good documentation \cite{Van_Benschoten2020}. 
 
-Here is yet another library based on the z-normalized Euclidean distance papers \cite{zhu_imamura_nikovski_keogh_2017}. 
-MatrixProfile is a Python 3 library, produced by the Matrix Profile Foundation, specifically for timeseries doing data mining. The Matrix Profile is a novel data structure with accompanying algorithms (regimes, stomp, motifs, etc.) created by the research groups of Keogh and Mueen at UC-Riverside and the University of New Mexico. MatrixProfile objective is to make these algorithms accessible to both beginners and experts by standardisation of basic principles, a straightforward API, and good documentation \cite{Van_Benschoten2020} 
-
-Unfortunately, at the time of this report Python 3.10 is not supported stopping the author from using the CAT machine datasets for this library. Fortunately the article \cite{Van_Benschoten2020} provides Figure \ref{matrixTable} of the results from a NYC taxi dataset, whereby results seem promising for the report with an interesting automatic Discord identifier. Discord being defined as ``A time series discord indicates a subsequence with the maximum distance to its neighbor in the given time series data, which means abnormal or unusual data trends."\cite{woodbridge_wilson_rintoul_goldstein_2015}
+Unfortunately, at the time this report was taken, Python 3.10 was not supported. This stopped the author from using the CAT machine datasets for this library. However, article \cite{Van_Benschoten2020} provides Figure \ref{matrixTable} with the results of a taxi dataset conducted in New York City. These results seem promising for the report, and have an interesting automatic Discord identifier. In this context, Discord is defined as ``A time series discord indicates a subsequence with the maximum distance to its neighbor in the given time series data, which means abnormal or unusual data trends."\cite{woodbridge_wilson_rintoul_goldstein_2015}
 
 \begin{figure}
 \centering
@@ -137,4 +138,4 @@ Unfortunately, at the time of this report Python 3.10 is not supported stopping 
 \end{figure}
 
 \subsection{tslearn}
-tslearn is another library based on the Scikit-learn platform. A trendy Python package for machine learning. Unfortunately, this library has the same issue as matrixprofile. It relies on training data for the AI to practice before running through the main dataset. No training data is allowed in the report's case, making the tslearn library unsuitable.  
+``tslearn" is another library based on the Scikit-learn platform, and is a trendy Python package for machine learning. Unfortunately, this library has the same issue as MatrixProfile; it relies on training data for the AI to practice before running through the main dataset. In this case, no training data is allowed in the report's case, rendering the ``tslearn" library unsuitable.
