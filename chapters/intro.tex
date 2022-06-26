@@ -1,14 +1,14 @@
 \raggedright
 \section{Background and context to the problem}
-Finding useful information in a vast amount of data is as difficult as `finding a needle in a haystack'. Using \textbf{automated} statistical tools to analyse these large data sets can provide valuable information to assist decision making.
+Finding useful information in vasts amount of data is as difficult as `finding a needle in a haystack'. Using \textbf{automated} statistical tools to analyse these large datasets can provide valuable information to assist decision making.
 
 Finding useful information in a vast amount of data can prove to be a difficult and overwhelming task - comparable to finding a needle in a haystack. Using automated statistical tools to analyse these large data sets can provide valuable information which can assist decision-making. 
 
-When a CAT machine finishes field testing, it has recorded over 100 channels of data for each test run. An example of a test run would be having the machine lift a bucket of sand and unload it onto a truck. This action is repeated multiple times by an operator throughout the test. Due to the repeated action, a pattern will consequently emerge in every data channel, which provides the basis of the report. If the operator did not repeat any actions, the tool would not be applicable. Using the author's tool, engineers are now able to efficiently analyse large volumes of data. 
+When a CAT machine finishes field testing, it has recorded over 100 channels of data for each test run. An example of a test run would be having the machine lift a bucket of sand and unload it onto a truck. This action is repeated multiple times by an operator throughout the test. Due to the repeated action, a pattern will consequently emerge in every data channel, which provides the basis of the report. If the operator did not repeat any actions, the script would not be applicable. Using the author's tool, engineers are now able to efficiently analyse large volumes of data. 
 
 
 \subsection{Cycle}
-A snippet of time is extracted from the larger dataset. In the report's case, the extracted data is roughly 30-120 seconds in length - which is the duration of the repeated task. The extracted data will be referred to as a "CYCLE" for the duration of this report. 
+A snippet of time is extracted from the larger dataset. In the report's case, the extracted data is roughly 30-120 seconds in length - which is the duration of the repeated task. The extracted data will be referred to as a ``CYCLE" for the duration of this report. 
 
 \section{What sort of data is suitable?}
 Suitable data for the autocorrelation script can range from the strain force of a boom arm on an excavator to a week's worth of foot traffic on a busy high street at peak times.  In an ideal scenario, you would have time series data with low noise and randomness but high repeatability. To improve the filtering and selection process referenced in \ref{filtering}, data that has 10+ cycles should be used. The tool is unaffected by the length of the dataset, but is highly affected by the total repeated cycles. Cycle count limitations will be talked about in more depth in section \ref{limitation}. The datasets in this report include three separate files of CAT Machine data with varying levels of magnitude, randomness, and noise. This can be seen in Figure \ref{data table}. 
