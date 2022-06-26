@@ -1,16 +1,21 @@
 \section{Technical/Commercial Content}
 In this day and age, we are receiving massive amounts of data. Unfortunately, raw data is meaningless without the skills and tools to analyse it.
-The commercial benefits of autocorrelation are that it saves the company resources, and reduces the time needed to filter through hours of machine data manually. As the engineers only have to analyse one cycle instead of hundreds, they can identify micro details in a cycle which would have otherwise drowned in hours of data. Data science tools are increasingly popular, especially within engineering teams, to help assist in large decisions. The companies using data science tools range from financial services to AMG Mercedes F1 team in solving their `porpoising' issue \cite{mercedes}. 
-\subsection{Key findings}
-The script produced with the Statsmodels ACF function shows promising results for a  method of cycle identification in python. Successfully working with 2 out of the 3 datasets tested against it. Only failing with dataset C, `Force Strain gauge' seemingly due to the 500hz frequency and high noise related to strain gauges.
+The commercial benefits of autocorrelation are that it saves the company resources by reducing the time needed to filter through hours of machine data manually. As the engineers only have to analyse one cycle instead of hundreds, they can identify micro details in a cycle which would have otherwise drowned in hours of data. Data science tools are increasingly popular, especially within engineering teams to help assist in large decisions. The companies using data science tools range from financial services to AMG Mercedes F1 team in solving their `porpoising' issue \cite{mercedes}. 
 
-Filtering was another hurdle in producing a fully functioning tool using autocorrelation. Three methods were produced with the most complex one being the `mean' function nonetheless this area is a weak link in the report. More advanced filtering methods could be investigated when narrowing down the group of cycles to one representative cycle. 
+\subsection{Reducing cost per dataset}
+Filtering this much data takes on average 1-2 days. The average engineer salary in the United Kingdom is £40,000 per year, or £20 per hour. If an engineer is on a salary of £20 an hour, this amount of work would cost the company £300 per dataset (7.5 hours x 20 x 2). Using the autocorrelation tool, the time taken to find the representative cycle would decrease from 2 days to 1 hour, and would cost £20 per dataset instead. This would mean a £280 decrease for the company per engineer. 
+
+\subsection{Key findings}
+The script produced with the Statsmodels ACF function shows promising results for a method of cycle identification in python. Successfully working with 2 out of the 3 datasets tested against it and only failing with dataset C, this failure could be attributed to the 500hz frequency and high noise related to strain gauges. 
+
+
+Filtering was another hurdle in producing a fully functioning tool using autocorrelation. Three methods were produced with the most complex one being the `mean' function. Despite the effort that went into producing them, they are a weak link in the report. More advanced filtering methods could be investigated when narrowing down the group of cycles to one representative cycle. 
 
 \subsection{Recommendations}
-For cycle identification the findings suggests that the reader tries out both Statsmodel and Stumpy to see which method fits their specific needs better. 
+For cycle identification the findings suggests that the reader try out both Statsmodel and Stumpy to see which method fits their specific needs better. 
 \subsubsection{Autocorrelation}
-For pattern recognition without cycle length knowledge use the tool. If large changes need to be made to the original script, the author recommends extracting the acf function from Statsmodel library instead of editing the whole script. 
-An idea that could investigated to improve the tools performance with higher randomness data like Dataset C. Investigate lowering the height constant and changing the prominence value in the peaks function. 
+To carry out pattern recognition, you need the cycle length. However, if this is not available, the autocorrelation tool can be used instead.  If large changes need to be made to the original script, the author recommends extracting the acf function from Statsmodel library instead of editing the whole script. 
+An idea that could be investigated to improve the tools performance with higher randomness data like Dataset C would be lowering the height constant and changing the prominence value in the peaks function. 
 
 \begin{python}
 #Find peak points
@@ -18,14 +23,16 @@ peak_points = scipy.signal.find_peaks(acorr, height=0.1,prominence=0.2)
 \end{python}
 
 \subsubsection{Stumpy}
-If the length of cycle is known, stump function even worked with dataset C, at 500hz, something that the autocorrelation script failed in.
-If Stumpy is chosen and reader is having issues with processing time required. Stumpy library offers an accelerated version through a Nvidia GPU version of the STUMP function. Author was unable to test this version due to limited access to a specific brand gpu. 
+There are two choices for pattern recognition: the autocorrelation tool or Stumpy library (which is shown in the literature review \ref{StumpySection}). If the length of the rough cycle is known, it is recommended to use Stumpy - otherwise, the autocorrelation tool should be used. 
+
+If the length of a cycle is know, STUMP function would even work with dataset C at 500hz, which the autocorrelation script failed in.
+
+If Stumpy is chosen and the reader is having issues with processing time required, Stumpy library offers an accelerated version through a Nvidia GPU version of the STUMP function. Due to limited access to a specific brand GPU, the author was unable to test this version. 
 \begin{python}
 import stumpy
 mp = stumpy.gpu_stump(df['value'], m=m)  
 # Note that you'll need a properly configured NVIDIA GPU for this
 \end{python}
 
-Also consider checking the Github page and the documentation as the library can be updated at any moment due with other tutorials and examples due to the open source nature of the library. \cite{law2019stumpy}
-
+Due to the open source nature of the library, other tutorials and examples can be updated at any moment, so it is recommended to check the Github page and the documentation at regular intervals  \cite{law2019stumpy}
 

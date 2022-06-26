@@ -31,7 +31,7 @@ In our case we use Autocorrelation to identify an appropriate time series model,
 
 \subsection{How does this apply?}
 
-The Autocorrelation coefficient has now been explained mathematically - but how can this be shown graphically? When looking at Figure \ref{ACF coefficient} and starting on the Y axis, you can see the scale goes from -1 to 1. 1 equates to a perfect match, whilst -1 is an anti-phase cycle match. 0 means there is a 0\% correlation. The X axis is the length of time of the dataset, but is not shown as a conventional measure of time (ie seconds, minutes). Instead, it is shown as rows on our dataset (as seen in the table shown in Figure \ref{data table}). If the dataset is 10,000 datapoints long, the X axis Autocorrelation coefficient graph will therefore show 10,000 as the maximum X value.  On the graph, peaks will be marked with red crosses. These are what the script looks for when identifying representative cycles.
+The Autocorrelation coefficient has now been explained mathematically - but how can this be shown graphically? When looking at Figure \ref{ACF coefficient} and starting on the Y axis, you can see the scale goes from -1 to 1. 1 equates to a perfect match, whilst -1 is an anti-phase cycle match. 0 means there is a 0\% correlation. The X axis is the length of time of the dataset, but is not shown as a conventional measure of time (ie seconds or minutes). Instead, it is shown as rows on our dataset (as seen in the table shown in Figure \ref{data table}). If the dataset is 10,000 datapoints long, the X axis Autocorrelation coefficient graph will therefore show 10,000 as the maximum X value.  On the graph, peaks will be marked with red crosses. These are what the script looks for when identifying representative cycles.
 
 \begin{figure}[ht]
 \centering
@@ -41,7 +41,7 @@ The Autocorrelation coefficient has now been explained mathematically - but how 
 \end{figure}
 
 \section{Other methods of pattern recognition}
-All methods and approaches of pattern recognition need to follow the approach shown in Figure \ref{fig:method}. Using the database produced by JJulien Siebert, Janek Groß, and Christof Schro \cite{DBLP:journals/corr/abs-2104-07406}, a table was made for time series data; this allows users to filter any information they need for the required task. In our case, we need to filter by pattern recognition. However, there are other classification methods available such as forecasting, classification, clustering, anomaly detection etc. Below is a list of all the libraries that fit the report's needs for pattern recognition.
+All methods and approaches of pattern recognition need to follow the approach shown in Figure \ref{fig:method}. Using the database produced by Julien Siebert, Janek Groß, and Christof Schro \cite{DBLP:journals/corr/abs-2104-07406}, a table was made for time series data; this allows users to filter any information they need for the required task. In our case, we need to filter by pattern recognition. However, there are other classification methods available such as forecasting, classification, clustering, anomaly detection etc. Below is a list of all the libraries that fit the report's needs for pattern recognition.
 \begin{figure}
     \centering
 
@@ -80,6 +80,7 @@ All methods and approaches of pattern recognition need to follow the approach sh
     \label{fig:method}
 \end{figure}
 \subsection{Stumpy}
+\label{StumpySection}
 On 17 Jul 2019, the Stumpy library was created. This library was born from the essential research created by the  University of New Mexico, Riverside and the University of California. It ``described an exact method called STOMP for computing the matrix profile for any time series with a computational complexity of O(n2)!" \cite{law2019stumpy} 
 
 \subsubsection{Matrix profile} 
@@ -120,10 +121,10 @@ mp = stumpy.stump(datasetA['mm'], length)
 \end{figure}
 
 \subsection{pyts}
-"pyts "is a Python library specialized in classifying time series. It seeks to make time series classification more accessible by offering pre-processing and utility tools, as well as implementations of multiple time series classification algorithms. The package includes several unit tests, and continuous integration ensures backward compatibility and code integration. The package is released under the BSD licence with three clauses.  \cite{JMLR:v21:19-763}
+``pyts" is a Python library specialized in classifying time series. It seeks to make time series classification more accessible by offering pre-processing and utility tools, as well as implementations of multiple time series classification algorithms. The package includes several unit tests, and continuous integration ensures backward compatibility and code integration. The package is released under the BSD licence with three clauses. \cite{JMLR:v21:19-763}
 
 
-Unfortunately, after researching and testing the tool to see its application, it has been discovered that it does not fit the requirements. The `pyst' library uses machine learning that requires training samples before running the actual time series data, and under the methodology of the report, no training samples are provided. The function also has to find `a representative cycle' with only 1 dataset, and even though it markets itself as pattern recognition (confirmed in database paper \cite{DBLP:journals/corr/abs-2104-07406}), the`pyst' library fails to do so.
+Unfortunately, after researching and testing the tool to see its application, it has been discovered that it does not fit the requirements. The `pyst' library uses machine learning that requires training samples before processing the actual time series data, and under the methodology of the report, no training samples are provided. The function also has to find `a representative cycle' with only 1 dataset, and even though it markets itself as pattern recognition (confirmed in database paper \cite{DBLP:journals/corr/abs-2104-07406}), the`pyst' library fails to do so.
 
 \subsection{MatrixProfile}
 Here is another library based on the z-normalised Euclidean distance papers \cite{zhu_imamura_nikovski_keogh_2017}. MatrixProfile is a Python 3 library produced explicitly by the MatrixProfile Foundation for timeseries doing data mining. The MatrixProfile is a novel data structure with accompanying algorithms (regimes, stomp, motifs etc.) created by the research groups of Keogh and Mueen at UC-Riverside and the University of New Mexico. The objective of MatrixProfile is to make these algorithms accessible to both beginners and experts. This can be done by standardising basic principles and good documentation \cite{Van_Benschoten2020}. 
@@ -138,4 +139,4 @@ Unfortunately, at the time this report was taken, Python 3.10 was not supported.
 \end{figure}
 
 \subsection{tslearn}
-``tslearn" is another library based on the Scikit-learn platform, and is a trendy Python package for machine learning. Unfortunately, this library has the same issue as MatrixProfile; it relies on training data for the AI to practice before running through the main dataset. No training data is allowed in the report's case, rendering the ``tslearn" library unsuitable.
+``Tslearn" is another library based on the Scikit-learn platform, and is a trendy Python package for machine learning. Unfortunately, this library has the same issue as MatrixProfile; it relies on training data for the AI to practice before running through the main dataset. No training data is allowed in the report's case, rendering the ``tslearn" library unsuitable.

@@ -24,7 +24,7 @@ This library is the backbone of the authors script. All data visualisation graph
 \subsubsection{NumPy}
 NumPy is another famous open source library created in 2006 which was used in various fields of STEM, from engineering to science and mathematics.``It’s the universal standard for working with numerical data in Python, and it’s at the core of the scientific Python and PyData ecosystems." \cite{mhvk}
 
-Used by beginner coders to advanced engineers in R\&D, the API is used in depth with most data science and specific Python packages. Most importantly, for the autocorrelation script, Matplotlib and Pandas library also use Numpy.  
+Used by beginner coders to advanced engineers, the API is used in depth with most data science and specific Python packages. Most importantly, for the autocorrelation script, Matplotlib and Pandas library also use Numpy.  
 
 The NumPy API is used extensively in Pandas, SciPy, Matplotlib, scikit-learn, scikit-image and most other data science and scientific Python packages.
 
@@ -38,17 +38,28 @@ Pandas in the code are referred to as the standardised name of pd. The sole purp
 
 \subsubsection{Scipy}
 
-``SciPy (pronounced "Sigh Pie") is an open-source software for mathematics, science, and engineering. It includes modules for statistics, optimization, integration, linear algebra, Fourier transforms, signal and image processing, ODE solvers, and more." \cite{Scipy}.  
+SciPy (pronounced ``Sigh Pie") is a library used strictly for up-sampling or down-sampling of the csv data. Example:
+\begin{python}
+signal = scipy.signal.resample(signal,123200)
+\end{python}
+
+SciPy is an mathematics, science, and engineering software that is open-source. It includes modules for integration, linear algebra, statistics,  ODE solvers, Fourier transforms, signal and image processing, and more. \cite{Scipy}.  
 
 In this script it is only used to assist in down sampling the signal data. 
-``signal = scipy.signal.resample(signal,123200)" 
+
 
 \subsubsection{Statsmodels}
 
-Statsmodels is a Python module that includes functions inside classes for a wide variety of statistical models, in addition to the execution of statistical tests and the study of statistical data. For each estimator, a full list of result statistics is accessible. In order to validate the accuracy of the findings, the results are compared to various pre-existing statistical analysis programs. \cite{law2019stumpy} 
+Statsmodels is a Python module that includes functions inside classes for a wide variety of statistical models, in addition to the execution of statistical tests and the study of statistical data. For each estimator, a full list of result statistics is accessible. In order to validate the accuracy of the findings, the results are compared to various pre-existing statistical analysis programs.\cite{law2019stumpy} 
 Statsmodel library serves as the foundation for this technical report because it can calculate the mathematical formulas and statistics for autocorrelation in a relatively small number of lines of code.
 
 \section{Script structure}
+
+Below is a high level breakdown of the autocorrelation script produced by the author. The diagram \ref{Flowchart} is in the style of a flow chart with zero code. Zero code is used to simplify this process for those who are not familiar with Python. 
+
+\begin{figure}
+    \centering
+    
 \begin{tikzpicture}[node distance=2cm]
 
 \node (start) [startstop] {Start};
@@ -57,7 +68,7 @@ Statsmodel library serves as the foundation for this technical report because it
 
 \node (in2) [process, below of=in1] {Resample to 100hz};
 
-\node (pro1) [process, below of=in2] {Autocorrolate function plot};
+\node (pro1) [process, below of=in2] {Autocorrelation function plot};
 
 \node (dec1) [decision, below of=pro1, yshift=-1.5cm] {More than 2 peaks?};
 
@@ -92,5 +103,9 @@ Statsmodel library serves as the foundation for this technical report because it
 
 
 \end{tikzpicture}
+    \caption{Flowchart}
+    \label{Flowchart}
+\end{figure}
+
 
 
