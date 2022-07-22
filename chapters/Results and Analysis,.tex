@@ -98,7 +98,7 @@ for cycle in cycles_plot:
 \subsection{Maximum peak}
 Approach A: filter with maximum peak, lowest trough, largest range 
 
-This approach would give the most extreme cycles. While it is a "...Representative cycle...". It isn't the closest to the "average"
+This approach would give the most extreme cycles. While it is a ``...Representative cycle...". It isn't the closest to the ``average"
 
 \begin{python}
 listforMax=[]
@@ -145,9 +145,9 @@ closest_to_av_index = meanList.index(closest_real_value)
 print(closest_to_av_index)
 \end{python}
 
-Using Python's built in min function, it finds the minimum distance from the ´meanList' to the real value ``np.average(meanList)". \cite{realValue}
+Using Python's built in min function, it finds the minimum distance from the `meanList' to the real value ``np.average(meanList)". \cite{realValue}
 
-The `meanList.Index()' function finds the index of our  ´closest\_real\_value' Giving an output of cycle nº 13.
+The `meanList.Index()' function finds the index of our  `closest\_real\_value' Giving an output of cycle nº 13.
 
 \subsection{Filtering limitations}
 Average, minimum and maximum work in the authors case but everyone's use case is different. Exploring other options like Standard deviations, most common cycle, 25 quarterly could be explored. 
